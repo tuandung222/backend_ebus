@@ -13,6 +13,61 @@ datasource db {
 
 model User {
   id    Int     @default(autoincrement()) @id
+  birthDate DateTime
+  password String
   email String  @unique
   name  String?
+  phone String?
+  bookings Booking[]
+  locationSearchings LocationSearching[]
+  messages Message[]
 }
+
+
+model BusStation {
+  id   Int     @default(autoincrement()) @id
+  name String  @unique
+  address String
+  BusLine BusLine[]
+  lattitude Float
+  longitude Float
+  bookingsForStart Booking[] @relation("busStartStation")
+  bookingsForEnd Booking[] @relation("busEndStation")
+}
+
+model LocationSearching {
+  id Int @default(autoincrement()) @id
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  typeEndOrStart String
+}
+
+model Message {
+  id Int @default(autoincrement()) @id
+  busStationId Int
+  message String
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Booking{
+  id Int @default(autoincrement()) @id
+  user User @relation(fields: [userId], references: [id])
+  busStartStation BusStation @relation(fields: [busStartStationId], references: [id], name: "busStartStation")
+  busEndStation BusStation @relation(fields: [busEndStationId], references: [id], name: "busEndStation")
+  busStartStationId Int
+  busEndStationId Int
+  busLine BusLine @relation(fields: [busLineId], references: [id])
+  busLineId Int
+  userId Int
+  createdAt DateTime @default(now())
+}
+
+model BusLine {
+  id Int @default(autoincrement()) @id
+  listStationId BusStation[]
+  Booking Booking[]
+}
+
+
