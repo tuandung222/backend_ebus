@@ -11,7 +11,7 @@ export class BusStationsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: number) {
     return await this.busStationsService.findOne(id);
   }
 

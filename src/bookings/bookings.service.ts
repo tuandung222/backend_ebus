@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 @Injectable()
 export class BookingsService {
-    async findAll(userID: string): Promise<any> {
+    async findAll(userID: number): Promise<any> {
         return await prisma.booking.findMany({
             where: {
                 userId: userID

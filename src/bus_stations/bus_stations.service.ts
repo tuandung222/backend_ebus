@@ -11,7 +11,7 @@ export class BusStationsService {
         return await prisma.busStation.findMany();
     }
 
-    async findOne(id: string): Promise<BusStation> {
+    async findOne(id: number): Promise<BusStation> {
         return await prisma.busStation.findUnique({
             where: { id: id },
         });
