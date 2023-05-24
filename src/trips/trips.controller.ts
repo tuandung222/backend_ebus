@@ -6,7 +6,7 @@ import { Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 export class TripsController {
   constructor(private readonly tripsService: TripsService) {}
   @Get()
-  async findAll(@Param('userId') userId: string) {
-    return await this.tripsService.findAll(userId);
+  findAll(@Param('userId') userId: string) {
+    return this.tripsService.findWithUserIds(userId);
   }
 }
