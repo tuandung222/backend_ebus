@@ -16,11 +16,13 @@ model User {
   birthDate DateTime
   password String
   email String  @unique
-  name  String?
+  firstName  String?
+  lastName String?
   phone String?
   bookings Booking[]
   locationSearchings LocationSearching[]
   messages Message[]
+  trips Trip[]
 }
 
 
@@ -28,23 +30,28 @@ model BusStation {
   id   Int     @default(autoincrement()) @id
   name String  @unique
   address String
-  BusLine BusLine[]
+  busLine StopAt[]
   lattitude Float
   longitude Float
   bookingsForStart Booking[] @relation("busStartStation")
   bookingsForEnd Booking[] @relation("busEndStation")
+  tripsForStart Trip[] @relation("busStartStation")
+  tripsForEnd Trip[] @relation("busEndStation")
 }
 
 model LocationSearching {
   id Int @default(autoincrement()) @id
+  address String
   user User @relation(fields: [userId], references: [id])
   userId Int
-  typeEndOrStart String
+  type String
+  lattitude Float
+  longitude Float
+  createdAt DateTime @default(now())
 }
 
 model Message {
   id Int @default(autoincrement()) @id
-  busStationId Int
   message String
   createdAt DateTime @default(now())
   user User @relation(fields: [userId], references: [id])
@@ -66,8 +73,32 @@ model Booking{
 
 model BusLine {
   id Int @default(autoincrement()) @id
-  listStationId BusStation[]
-  Booking Booking[]
+  busStations StopAt[]
+  bookings Booking[]
+  type String
+  trips Trip[]
+  price Float
 }
 
+model Trip {
+  id Int @default(autoincrement()) @id
+  busLine BusLine @relation(fields: [busLineId], references: [id])
+  busLineId Int
+  busStartStation BusStation @relation(fields: [busStartStationId], references: [id], name: "busStartStation")
+  busEndStation BusStation @relation(fields: [busEndStationId], references: [id], name: "busEndStation")
+  busStartStationId Int
+  busEndStationId Int
+  date DateTime
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model StopAt {
+  id Int @default(autoincrement()) @id
+  busLine BusLine @relation(fields: [busLineId], references: [id])
+  busLineId Int
+  busStation BusStation @relation(fields: [busStationId], references: [id])
+  busStationId Int
+  order Int
+}
 
