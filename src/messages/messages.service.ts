@@ -1,30 +1,26 @@
 import { Injectable } from '@nestjs/common';
-const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
 
 @Injectable()
-export class BookingsService {
-    async findAll(userID: string): Promise<any> {
-        return await prisma.booking.findMany({
-            where: {
-                userId: parseInt(userID)
-            }
-        });
+export class MessagesService {
+    async findAll(): Promise<any> {
+        return await prisma.message.findMany();
     }
     async findOne(id: string): Promise<any> {
-        return await prisma.booking.findUnique({
+        return await prisma.message.findUnique({
             where: {
                 id: parseInt(id)
             }
         });
     }
     async create(data: any): Promise<any> {
-        return await prisma.booking.create({
+        return await prisma.message.create({
             data
         });
     }
     async update(id: string, data: any): Promise<any> {
-        return await prisma.booking.update({
+        return await prisma.message.update({
             where: {
                 id: parseInt(id)
             },
@@ -32,10 +28,10 @@ export class BookingsService {
         });
     }
     async delete(id: string): Promise<any> {
-        return await prisma.booking.delete({
+        return await prisma.message.delete({
             where: {
                 id: parseInt(id)
             }
         });
-    } 
+    }
 }

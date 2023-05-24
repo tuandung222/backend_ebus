@@ -5,11 +5,13 @@ import { BookingsModule } from './bookings/bookings.module';
 import { TripsModule } from './trips/trips.module';
 import { BusStationsModule } from './bus_stations/bus_stations.module';
 import { LocationSearchingsModule } from './location_searchings/location_searchings.module';
+import { BuslinesModule } from './buslines/buslines.module';
+import { MessagesModule } from './messages/messages.module';
 
 
 
 @Module({
-  imports: [ BookingsModule, TripsModule, BusStationsModule, LocationSearchingsModule],
+  imports: [ BookingsModule, TripsModule, BusStationsModule, LocationSearchingsModule, BuslinesModule, MessagesModule],
   controllers: [AppController],
   providers: [AppService],
 })
