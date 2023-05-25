@@ -3,7 +3,7 @@ import { BookingsService } from './bookings.service';
 import { Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-@Controller('users/{userID}/bookings')
+@Controller('users/:userID/bookings')
 @ApiTags('Booking histories (Lịch sử đặt vé)')
 export class BookingsController {
   constructor(private readonly bookingsService: BookingsService) {}
