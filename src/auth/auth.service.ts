@@ -12,11 +12,11 @@ const prisma = new PrismaClient()
 export class AuthService {
   constructor(private jwtService: JwtService) {}
 
-  async login(email: string, password: string): Promise<AuthEntity> {
-    const user = await prisma.user.findUnique({ where: { email } });
+  async login(username: string, password: string): Promise<AuthEntity> {
+    const user = await prisma.user.findUnique({ where: { username } });
 
     if (!user) {
-      throw new NotFoundException(`No user found for email: ${email}`);
+      throw new NotFoundException(`No user found for username: ${username}`);
     }
 
     // const isPasswordValid = await bcrypt.compare(password, user.password);
