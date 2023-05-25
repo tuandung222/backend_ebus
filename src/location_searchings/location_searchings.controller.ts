@@ -1,7 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { LocationSearchingsService } from './location_searchings.service';
 import { Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 @Controller('users/:userId/location_searchings')
+@ApiTags('Locations Searching History (Lịch sử tìm kiếm địa điểm)')
 export class LocationSearchingsController {
   constructor(private readonly locationSearchingsService: LocationSearchingsService) {}
   async findWithUserIds(userId: string): Promise<any> {

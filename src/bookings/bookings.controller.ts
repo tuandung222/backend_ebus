@@ -1,10 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { BookingsService } from './bookings.service';
 import { Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+
 @Controller('users/{userID}/bookings')
+@ApiTags('Booking histories (Lịch sử đặt vé)')
 export class BookingsController {
   constructor(private readonly bookingsService: BookingsService) {}
   @Get()
+  @ApiOkResponse({ description: 'List booking-histories of user' })
   async findAll(@Param('userID') userID: string): Promise<any> {
     return await this.bookingsService.findAll(userID);
   }

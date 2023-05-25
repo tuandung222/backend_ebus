@@ -1,9 +1,12 @@
 import { Controller } from '@nestjs/common';
 import { TripsService } from './trips.service';
 import { Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('users/:userId/trips')
+@ApiTags('Trips History (Lịch sử chuyến đi)')
 export class TripsController {
+
   constructor(private readonly tripsService: TripsService) {}
   async findWithUserIds(userId: string): Promise<any> {
     return await this.tripsService.findWithUserIds(userId);

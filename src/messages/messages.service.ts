@@ -4,8 +4,19 @@ const prisma = new PrismaClient()
 
 @Injectable()
 export class MessagesService {
-    async findAll(): Promise<any> {
-        return await prisma.message.findMany();
+    async findWithUserIds(userId: string): Promise<any> {
+        return await prisma.message.findMany({
+            where: {
+                userId: parseInt(userId)
+            }
+        });
+    }
+    async findAll(userId: string): Promise<any> {
+        return await prisma.message.findMany({
+            where: {
+                userId: parseInt(userId)
+            }
+        });
     }
     async findOne(id: string): Promise<any> {
         return await prisma.message.findUnique({
